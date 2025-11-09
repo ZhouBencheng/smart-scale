@@ -1,17 +1,17 @@
-// pages/home/home.js
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+// pages/picker/picker.js
+const defaultAvatarUrl = "https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0"
 
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
     avatarUrl: defaultAvatarUrl,
-    hasUserInfo: false,
 
-    nickName: "我的名称",
-
-    companyName: "请输入公司名称"
+    name: "姓名",
+    gender: "男/女",
+    phoneNumber: "手机号"
   },
 
   /**

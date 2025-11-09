@@ -1,2 +1,122 @@
-<!--pages/scale/scale.wxml-->
-<text>pages/scale/scale.wxml</text>
+<!-- 顶部 2/3：可上下左右滑动的“表格”展示区 -->
+<view class="page">
+  <view class="top-area">
+    <!-- 同时开启横向与纵向滚动 -->
+    <scroll-view class="table-scroll"
+                 scroll-x="true"
+                 scroll-y="true"
+                 enhanced="true"
+                 show-scrollbar="true">
+      <view class="table">
+        <!-- 表头 -->
+        <view class="tr thead">
+          <view class="th" wx:for="{{tableColumns}}" wx:key="key"
+                style="min-width: {{item.minWidth || 120}}rpx">{{item.title}}</view>
+        </view>
+        <!-- 数据行 -->
+        <block wx:if="{{tableData && tableData.length}}">
+          <view class="tr" wx:for="{{tableData}}" wx:key="id">
+            <view class="td" wx:for="{{tableColumns}}" wx:key="key"
+                  style="min-width: {{item.minWidth || 120}}rpx">
+              {{item.render ? item.render(item, item.key) : (item.formatter ? item.formatter(item2[item.key]) : item2[item.key])}}
+            </view>
+          </view>
+        </block>
+        <view wx:else class="empty-wrap">
+          <van-empty description="暂无采摘记录" />
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部 1/3：左右分栏 -->
+  <view class="bottom-area">
+    <!-- 左：蓝牙连接块 -->
+    <view class="left-pane">
+      <view class="card">
+        <view class="card-header">
+          <van-icon name="cluster" />
+          <text class="card-title">称重器连接</text>
+        </view>
+
+        <!-- 串口/状态信息 -->
+        <van-cell-group inset>
+          <van-cell title="设备" value="{{connectedDeviceName || '未连接'}}" />
+          <van-cell title="重量" value="{{currentWeight || '--'}}" />
+        </van-cell-group>
+
+        <!-- 连接按钮（按钮文案显示当前设备名或“连接称重器”） -->
+        <view class="card-actions">
+          <van-button type="primary" block round icon="link-o" bind:click="onOpenDevicePopup">
+            {{"连接称重器" || connectedDeviceName}}
+          </van-button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 右：扫码工人二维码 -->
+    <view class="right-pane">
+      <view class="card">
+        <view class="card-header">
+          <van-icon name="scan" />
+          <text class="card-title">工人扫码</text>
+        </view>
+
+        <van-cell-group inset>
+          <van-cell title="姓名" value="{{scanResult.name || '-'}}" />
+          <van-cell title="工号" value="{{scanResult.workerId || '-'}}" />
+        </van-cell-group>
+
+        <view class="card-actions">
+          <van-button type="primary" icon="scan" block round bind:click="onScanWorker">
+            扫描二维码
+          </van-button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交/入表占位（按你业务需要在 JS 中实现） -->
+  <view class="commit-wrap">
+  <van-button
+      class="commit-btn"
+      type="warning"
+      block
+      icon="records"
+      round
+      bind:click="onCommitRecord"
+      disabled="{{!connectedDeviceName || !scanResult.workerId}}">
+      录入当前重量
+    </van-button>
+  </view>
+
+  <!-- 右侧弹窗：蓝牙设备扫描列表 -->
+  <van-popup show="{{devicePopupShow}}"
+             position="bottom"
+             round
+             bind:close="onCloseDevicePopup"
+             custom-style="height: 50%;">
+    <view class="popup-wrap">
+      <view class="popup-header">
+        <text>可连接设备</text>
+        <van-button size="small" type="primary" plain icon="replay" round bind:click="onRescanDevices">重新扫描</van-button>
+      </view>
+
+      <van-cell-group>
+        <block wx:if="{{btDevices.length}}">
+          <van-cell wx:for="{{btDevices}}"
+                    wx:key="devId"
+                    title="{{item.name || '未知设备'}}"
+                    label="{{item.deviceId}}"
+                    is-link
+                    bind:click="onTapDevice"
+                    data-name="{{item.name}}"
+                    data-dev-id="{{item.devId}}" />
+        </block>
+        <view wx:else class="empty-dev">
+          <van-empty description="未发现蓝牙设备" />
+        </view>
+      </van-cell-group>
+    </view>
+  </van-popup>
+</view>

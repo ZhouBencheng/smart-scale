@@ -2,7 +2,8 @@
   "pages": [
     "pages/scale/scale",
     "pages/workers/workers",
-    "pages/home/home"
+    "pages/home/home",
+    "pages/picker/picker"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -16,7 +17,9 @@
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
     "van-image": "@vant/weapp/image/index",
-    "van-icon": "@vant/weapp/icon/index"
+    "van-icon": "@vant/weapp/icon/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-empty": "@vant/weapp/empty/index"
   },
   "tabBar": {
     "list": [

@@ -1,2 +1,1 @@
-<!--pages/workers/workers.wxml-->
-<text>pages/workers/workers.wxml</text>
+<van-button icon="add-o" type="primary" round></van-button>

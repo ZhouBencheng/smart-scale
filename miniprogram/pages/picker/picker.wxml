@@ -1,0 +1,22 @@
+<!--pages/picker/picker.wxml-->
+<van-cell-group title="   " inset>
+  <van-cell center title="{{name}}">
+    <van-image 
+    src="{{avatarUrl}}"
+    height="120rpx" width="120rpx"
+    round fit fill></van-image>
+  </van-cell>
+</van-cell-group>
+
+<van-cell-group title="   " inset>
+  <van-cell icon="contact-o">
+    <view slot="title">
+      <view class="van-cell-text">{{gender}}</view>
+    </view>
+  </van-cell>
+  <van-cell icon="phone-o">
+    <view slot="title">
+      <view class="van-cell-text">{{phoneNumber}}</view>
+    </view>
+  </van-cell>
+</van-cell-group>
