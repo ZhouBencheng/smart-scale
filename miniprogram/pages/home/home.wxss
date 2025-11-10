@@ -1,1 +1,49 @@
-/* pages/home/home.wxss */
+/* 通用间距与卡片 */
+.section { margin: 15rpx; }
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  padding: 5px;
+}
+
+/* 外卡片已有圆角与阴影，不再需要 group 的外边框 */
+.section.card { overflow: hidden; }
+
+/* 用户卡片布局 */
+.user-card { 
+  display: flex; 
+  align-items: center; 
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  padding: 12px;
+}
+.user-left { margin-right: 12px; }
+.user-right { flex: 1; overflow: hidden; }
+.user-name { font-size: 16px; font-weight: 600; display: flex; align-items: center; }
+.user-sub { color: #8c8c8c; font-size: 12px; margin-top: 4px; }
+.user-actions { position: absolute; right: 12px; top: 12px; display: flex; gap: 8px; }
+.ml8 { margin-left: 8px; }
+
+/* Stepper 位置优化 */
+.stepper-wrap { display: flex; align-items: center; }
+
+/* 图表卡片 */
+.chart-card { padding: 12px; }
+.chart-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px; height: 50rpx;
+}
+.chart-title { font-weight: 600; }
+.chart-canvas {
+  width: 100%;
+  height: 220px;         /* 可按需调整 */
+  border-radius: 10px;
+  background: #fafafa;
+}
+.chart-placeholder { padding: 16px 0; }
+
+/* iPhone 安全区 */
+.safe-bottom { height: env(safe-area-inset-bottom); }
