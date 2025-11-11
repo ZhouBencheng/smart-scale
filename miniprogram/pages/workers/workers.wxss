@@ -1,0 +1,89 @@
+/* 页面容器 */
+.container {
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding-bottom: calc(120rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+}
+
+/* 工人网格 */
+.worker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 24rpx 24rpx 160rpx 24rpx;
+  box-sizing: border-box;
+}
+
+.worker-item {
+  width: 33.3333%;
+  padding: 24rpx 12rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.worker-item .avatar {
+  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.worker-item .name {
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  color: #323233;
+  max-width: 200rpx;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 悬浮添加按钮 */
+.fab {
+  position: fixed;
+  right: 32rpx;
+  bottom: calc(48rpx + constant(safe-area-inset-bottom));
+  bottom: calc(48rpx + env(safe-area-inset-bottom));
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: #07c160; /* Vant 主绿色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12rpx 24rpx rgba(7, 193, 96, 0.35);
+  /* z-index: 999; */
+}
+.fab-hover { opacity: 0.9; }
+
+/* 弹窗表单 */
+.popup-header {
+  padding: 24rpx 32rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #323233;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.form {
+  padding: 16rpx 24rpx 40rpx 24rpx;
+}
+
+.form-item {
+  margin: 24rpx 0;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.btn-row {
+  margin-top: 24rpx;
+}
+
+.btn + .btn {
+  margin-top: 24rpx;
+}

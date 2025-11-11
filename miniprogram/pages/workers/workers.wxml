@@ -1,1 +1,85 @@
-<van-button icon="add-o" type="primary" round></van-button>
+<view class="container">
+
+<!-- 空状态 -->
+<van-empty
+  wx:if="{{workers.length === 0}}"
+  description="暂无工人，点击右下角新增" />
+
+<!-- 工人网格 -->
+<view wx:else class="worker-grid">
+  <block wx:for="{{workers}}" wx:key="id">
+    <view class="worker-item" bindtap="onTapWorker" data-id="{{item.id}}">
+      <van-image
+        class="avatar"
+        width="96rpx"
+        height="96rpx"
+        round
+        fit="cover"
+        src="{{item.avatar || defaultAvatar}}" />
+      <text class="name">{{item.name}}</text>
+    </view>
+  </block>
+</view>
+
+<!-- 右下角悬浮添加按钮 -->
+<view class="fab" bindtap="openAddPopup" hover-class="fab-hover">
+  <van-icon name="plus" size="24px" color="#ffffff" />
+</view>
+
+<!-- 新增工人弹窗 -->
+<van-popup
+  show="{{showAddPopup}}"
+  round
+  position="bottom"
+  custom-style="min-height: 60vh;"
+  bind:close="closeAddPopup">
+
+  <view class="popup-header">新增工人</view>
+
+  <view class="form">
+    <!-- 头像上传 -->
+    <view class="form-item">
+      <view class="label">头像</view>
+      <van-uploader
+        accept="image"
+        capture="camera"
+        max-count="1"
+        preview-image
+        deletable
+        file-list="{{avatarFileList}}"
+        bind:after-read="onAvatarAfterRead"
+        bind:delete="onAvatarDelete" />
+    </view>
+
+    <!-- 姓名 -->
+    <van-field
+      label="姓名"
+      placeholder="请输入姓名"
+      value="{{form.name}}"
+      bind:change="onFieldChange"
+      data-field="name"
+      required
+    />
+
+    <!-- 电话 -->
+    <van-field
+      label="电话"
+      placeholder="请输入手机号"
+      type="tel"
+      maxlength="20"
+      value="{{form.phone}}"
+      bind:change="onFieldChange"
+      data-field="phone"
+    />
+
+    <view class="btn-row">
+      <van-button
+        class="btn"
+        type="primary"
+        round
+        block
+        bind:tap="onSubmit">保存</van-button>
+    </view>
+  </view>
+</van-popup>
+</view>
