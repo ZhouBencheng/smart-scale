@@ -1,1 +1,121 @@
-/* pages/picker/picker.wxss */
+.page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
+}
+
+/* 顶部卡片 */
+.header-card {
+  display: flex;
+  align-items: center;
+  margin: 24rpx;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.04);
+}
+.header-card .avatar {
+  flex: none;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+.title-wrap {
+  margin-left: 24rpx;
+}
+.name {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #323233;
+  round: true;
+}
+.sub {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #969799;
+}
+
+/* 操作区 */
+.action-wrap {
+  padding: 24rpx;
+}
+
+/* 二维码卡片 */
+.qr-card {
+  margin: 0 24rpx 24rpx;
+  margin-top: 24rpx;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+.qr-title {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  font-size: 28rpx;
+  color: #323233;
+  margin-bottom: 16rpx;
+}
+.qr-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 360rpx;
+  background: #f7f8fa;
+  border-radius: 16rpx;
+  border: 1px dashed #e5e6eb;
+}
+.qr-placeholder {
+  width: 280rpx;
+  height: 280rpx;
+  border-radius: 8rpx;
+  background: repeating-linear-gradient(
+    45deg,
+    #f0f0f0 0,
+    #f0f0f0 10rpx,
+    #eaeaea 10rpx,
+    #eaeaea 20rpx
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 24rpx;
+}
+.qr-desc {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #808089;
+  text-align: center;
+}
+
+/* Popup */
+.popup-header {
+  padding: 24rpx 28rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #323233;
+  border-bottom: 1px solid #f1f2f5;
+}
+.popup-body {
+  padding: 8rpx 24rpx 24rpx 24rpx;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.record-item {
+  padding: 16rpx 0 0 0;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+.label {
+  color: #909399;
+  font-size: 26rpx;
+}
+.value {
+  color: #323233;
+  font-size: 26rpx;
+}
+.popup-footer {
+  padding: 16rpx 24rpx 32rpx 24rpx;
+}

@@ -1,22 +1,79 @@
-<!--pages/picker/picker.wxml-->
-<van-cell-group title="   " inset>
-  <van-cell center title="{{name}}">
-    <van-image 
-    src="{{avatarUrl}}"
-    height="120rpx" width="120rpx"
-    round fit fill></van-image>
-  </van-cell>
+<view class="page">
+
+<!-- 顶部：头像 + 姓名 -->
+<view class="header-card">
+  <van-image
+    class="avatar"
+    round
+    width="120rpx"
+    height="120rpx"
+    fit="cover"
+    src="{{worker.avatar || defaultAvatar}}"
+  />
+  <view class="title-wrap">
+    <view class="name">{{worker.name || '未命名'}}</view>
+    <!-- <view class="sub">工号：{{worker.id || '-'}}</view> -->
+  </view>
+</view>
+
+<!-- 基本信息 -->
+<van-cell-group inset>
+  <van-cell title="手机号" icon="phone-o" value="{{worker.phone || '未填写'}}" />
+  <van-cell title="工号" icon="idcard" value="{{worker.id || '-'}}" />
+  <van-cell
+    title="采摘记录"
+    icon= "records-o"
+    is-link
+    bind:tap="openRecordPopup" />
 </van-cell-group>
 
-<van-cell-group title="   " inset>
-  <van-cell icon="contact-o">
-    <view slot="title">
-      <view class="van-cell-text">{{gender}}</view>
+<!-- 工人专属二维码（占位区） -->
+<view class="qr-card">
+  <view class="qr-title">
+    <van-icon name="qr" size="18px" /> 工人二维码
+  </view>
+  <view class="qr-box">
+    <!-- 这里后续可替换为生成后的 <image src="{{qrUrl}}" /> -->
+    <view class="qr-placeholder">
+      QR 占位（后续接入生成）
     </view>
-  </van-cell>
-  <van-cell icon="phone-o">
-    <view slot="title">
-      <view class="van-cell-text">{{phoneNumber}}</view>
-    </view>
-  </van-cell>
-</van-cell-group>
+  </view>
+  <view class="qr-desc">此二维码与该工人一一对应，用于采摘环节扫码识别</view>
+</view>
+
+<!-- 采摘记录 Popup -->
+<van-popup
+  round
+  position="bottom"
+  show="{{showRecordPopup}}"
+  custom-style="min-height: 60vh;"
+  bind:close="closeRecordPopup"
+>
+  <view class="popup-header">采摘记录</view>
+  <view class="popup-body">
+
+    <block wx:if="{{records.length > 0}}">
+      <block wx:for="{{records}}" wx:key="id">
+        <view class="record-item">
+          <view class="row">
+            <text class="label">时间</text>
+            <text class="value">{{item.time}}</text>
+          </view>
+          <view class="row">
+            <text class="label">重量(kg)</text>
+            <text class="value">{{item.weight}}</text>
+          </view>
+          <view class="row" wx:if="{{item.note}}">
+            <text class="label">备注</text>
+            <text class="value">{{item.note}}</text>
+          </view>
+        </view>
+        <van-divider dashed />
+      </block>
+    </block>
+
+    <van-empty wx:else description="暂无采摘记录" />
+  </view>
+
+</van-popup>
+</view>
