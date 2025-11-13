@@ -42,7 +42,7 @@ Page({
   /* 表单字段变更 */
   onFieldChange(e) {
     const { field } = e.currentTarget.dataset;
-    const { value } = e.detail;
+    const value = e.detail;
     this.setData({ [`form.${field}`]: value });
   },
 
