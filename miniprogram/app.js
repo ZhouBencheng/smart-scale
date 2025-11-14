@@ -1,4 +1,5 @@
 // app.js
+import Dialog from '@vant/weapp/dialog/dialog'
 App({
   globalData: {
     env: "",

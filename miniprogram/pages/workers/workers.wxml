@@ -6,19 +6,38 @@
   description="暂无工人，点击右下角新增" />
 
 <!-- 工人网格 -->
-<view wx:else class="worker-grid">
-  <block wx:for="{{workers}}" wx:key="id">
-    <view class="worker-item" bindtap="onTapWorker" data-id="{{item.id}}">
-      <van-image
-        class="avatar"
-        width="96rpx"
-        height="96rpx"
-        round
-        fit="cover"
-        src="{{item.avatar || defaultAvatar}}" />
-      <text class="name">{{item.name}}</text>
-    </view>
-  </block>
+<view class="workers-page">
+  <view class="worker-grid">
+    <block wx:for="{{workers}}" wx:key="id" wx:for-item="item">
+      <view class="worker-item" bindtap="onTapWorker" data-id="{{item.id}}">
+        <view class="card">
+          <van-image class="avatar" round fit="cover"
+            src="{{item.avatar || defaultAvatar}}"
+          ></van-image>
+          <view class="info">
+            <view class="name">{{item.name}}</view>
+            <view class="phone">{{item.phone || '未填写'}}</view>
+          </view>
+
+          <view class="card-actions">
+            <van-button class="qr-btn" size="small" round
+              type="primary" icon="qr" plain catch:tap="onShowQr"
+              data-id="{{item.id}}"
+              data-name="{{item.name}}"
+            ></van-button>
+
+            <van-button class="delete-btn" size="small" round
+              type="danger" icon="delete" plain catch:tap="onDeleteWorker"
+              data-id="{{item.id}}"
+              data-name="{{item.name}}"
+            ></van-button>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <van-dialog id="van-dialog" />
 </view>
 
 <!-- 右下角悬浮添加按钮 -->

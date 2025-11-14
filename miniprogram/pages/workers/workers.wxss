@@ -1,43 +1,105 @@
-/* 页面容器 */
-.container {
-  min-height: 100vh;
-  background: #f7f8fa;
-  padding-bottom: calc(120rpx + constant(safe-area-inset-bottom));
-  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
-}
-
-/* 工人网格 */
 .worker-grid {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 24rpx 24rpx 160rpx 24rpx;
+  --col-gap: 26rpx; 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  column-gap: var(--col-gap);
+  row-gap: 26rpx;
+  width: 100%;
+  max-width: 100%;
+  padding: 6rpx 12rpx;
   box-sizing: border-box;
 }
 
 .worker-item {
-  width: 33.3333%;
-  padding: 24rpx 12rpx;
   box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+/* 卡片样式：尺寸稳定、层级清晰 */
+.card {
+  background: #fff;
+  border-radius: 14rpx;
+  padding: 40rpx 40rpx; /* 略微减小内边距，给卡片更多内容空间 */
+  box-shadow: 0 8rpx 22rpx rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.worker-item .avatar {
-  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.08);
+  width: 100%;        /* fill the grid cell so each card equals 1/3 of container */
+  min-height: 250rpx;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
-.worker-item .name {
+.card .avatar {
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  width: 140rpx;
+  height: 140rpx;
+  display: block;
+}
+
+/* 文本信息 */
+.info {
+  width: 100%;
   margin-top: 16rpx;
-  font-size: 26rpx;
-  color: #323233;
-  max-width: 200rpx;
   text-align: center;
+}
+.name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #323233;
+  line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.phone {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #86909c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 二维码按钮与删除按钮的比例调整 */
+.qr-btn {
+  height: 44rpx;
+  line-height: 44rpx;
+  border-radius: 999rpx;
+  box-sizing: border-box;
+  padding: 0 8rpx;
+}
+
+/* 卡片底部操作区：二维码 + 删除 并排 */
+.card-actions {
+  display: flex;
+  gap: 12rpx;
+  width: 100%;
+  margin-top: 14rpx;
+  box-sizing: border-box;
+}
+
+/* 二维码按钮占据剩余空间，删除按钮为窄的固定宽度 */
+.card-actions .van-button {
+  height: 44rpx;
+  line-height: 44rpx;
+  box-sizing: border-box;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6rpx; /* reduce horizontal padding so buttons don't force width */
+  min-width: 0; /* allow flex children to shrink instead of forcing parent width */
+  flex: 1 1 0; /* default each button will share space equally unless overridden */
+}
+
+.qr-btn { flex: 1 1 0; }
+.delete-btn { flex: 1 1 0; }
+
+/* delete button uses .van-button styling and .card-actions rules */
 
 /* 悬浮添加按钮 */
 .fab {

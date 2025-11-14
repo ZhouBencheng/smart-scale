@@ -1,14 +1,16 @@
+import Dialog from '../../@vant/weapp/dialog/dialog';
 Page({
   data: {
     workers: [],                 // {id, name, phone, avatar}
     showAddPopup: false,
+    onShowQr: false,
     form: {
       name: '',
       phone: '',
       avatar: ''                 // 临时文件路径或网络地址
     },
     avatarFileList: [],          // 供 van-uploader 预览
-    defaultAvatar: 'https://img.yzcdn.cn/vant/user-inactive.png'
+    defaultAvatar: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
   },
 
   /* 悬浮按钮 */
@@ -18,7 +20,34 @@ Page({
   closeAddPopup() {
     this.setData({ showAddPopup: false });
   },
+  onShowQr(e) {
+    console.log(e);
+    const { name } = e.currentTarget.dataset;
+    Dialog.alert({
+      title: `${name}`,
+      message: '二维码图片（将 <image src="..."> 写到 messageHTML 中）',
+      selector: '#van-dialog',
+      messageAlign: 'center'
+    });
+  },
 
+  /* 删除工人 */
+  onDeleteWorker(e) {
+    const { id, name } = e.currentTarget.dataset;
+    Dialog.confirm({
+      title: '删除工人',
+      message: `确定要删除工人 "${name}" 吗？此操作不可恢复。`,
+      selector: '#van-dialog'
+    })
+      .then(() => {
+        const next = this.data.workers.filter(w => w.id !== id);
+        this.setData({ workers: next });
+        wx.showToast({ title: '已删除', icon: 'success' });
+      })
+      .catch(() => {
+        // 用户取消删除
+      });
+  },
   /* 头像上传完成 */
   onAvatarAfterRead(e) {
     // e.detail.file 可能为对象或数组，统一取第一个
@@ -90,7 +119,7 @@ Page({
     const id = e.currentTarget.dataset.id;
     // 按你的实际路由调整
     wx.navigateTo({
-      url: `/pages/worker-detail/index?workerId=${id}`
+      url: `/pages/picker/picker?workerId=${id}`
     });
   }
 });
