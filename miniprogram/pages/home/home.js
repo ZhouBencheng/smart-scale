@@ -1,3 +1,5 @@
+var app = getApp()
+
 Page({
   data: {
     defaultAvatarUrl : 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
@@ -14,30 +16,30 @@ Page({
     hasChartData: false
   },
 
-  /* —— 登录 —— */
-  async onLogin() {
-    // 1) 业务登录（示例）：
-    // const { code } = await wx.login();
-    // const token = await api.exchangeCodeForToken(code);
-    // 2) 获取微信头像/昵称（需在 button 中改为用户触发或后端回传）
-    try {
-      const profile = await wx.getUserProfile({
-        desc: '用于显示个人信息'
-      });
-      this.setData({
-        loggedIn: true,
-        userInfo: {
-          nickName: profile.userInfo.nickName,
-          avatarUrl: profile.userInfo.avatarUrl
-        }
-      });
-      // TODO: 拉取公司与近几天数据
-      // const company = await api.fetchCompany(token)
-      // const chart = await api.fetchRecentStats({ days: this.data.chartDays })
-      // this.setData({ company, hasChartData: chart?.length > 0 }, () => this.drawChart(chart))
-    } catch (e) {
-      wx.showToast({ icon: 'none', title: '用户未授权' });
+  onShow() {
+    // console.log("show home page")
+    if (!this.data.loggedIn) {
+        wx.showToast({
+          icon: 'none',
+          title: '请完成登录并绑定公司',
+      })
     }
+  },
+
+  /* —— 登录 —— */
+  onLogin() {
+    let that = this
+    wx.navigateTo({
+      url: '/pages/login/login',
+      events: {
+        getUserInfo: function(userInfo) {
+          that.setData({
+            loggedIn: true,
+            userInfo: userInfo
+          })
+        }
+      },
+    })
   },
 
   onLogout() {

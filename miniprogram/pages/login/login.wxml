@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="userinfo">
+    <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+    </button>
+    <view class="nickname-wrapper">
+      <text class="nickname-label">昵称</text>
+      <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
+    </view>
+    <van-button class="login-btn" type="primary" bind:tap="onFinishLogin" disabled="{{!hasUserInfo}}">完成登录</van-button>
+  </view>
+</view>
