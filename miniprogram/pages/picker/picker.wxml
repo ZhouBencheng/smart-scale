@@ -3,16 +3,14 @@
 <!-- 顶部：头像 + 姓名 -->
 <view class="header-card">
   <van-image
-    class="avatar"
     round
     width="120rpx"
     height="120rpx"
     fit="cover"
-    src="{{worker.avatar || defaultAvatarUrl}}"
+    src="{{worker.avatarUrl || defaultAvatarUrl}}"
   />
   <view class="title-wrap">
     <view class="name">{{worker.name || '未命名'}}</view>
-    <!-- <view class="sub">工号：{{worker.id || '-'}}</view> -->
   </view>
 </view>
 

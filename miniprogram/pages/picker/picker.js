@@ -7,7 +7,7 @@ Page({
       id: '',
       name: '',
       phone: '',
-      avatar: ''
+      avatarUrl: ''
     },
     defaultAvatarUrl: app.globalData.defaultAvatarUrl,
     showRecordPopup: false,
