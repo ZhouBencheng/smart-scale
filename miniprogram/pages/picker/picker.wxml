@@ -8,7 +8,7 @@
     width="120rpx"
     height="120rpx"
     fit="cover"
-    src="{{worker.avatar || defaultAvatar}}"
+    src="{{worker.avatar || defaultAvatarUrl}}"
   />
   <view class="title-wrap">
     <view class="name">{{worker.name || '未命名'}}</view>

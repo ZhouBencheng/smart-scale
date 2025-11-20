@@ -1,8 +1,8 @@
 var app = getApp()
+const defaultAvatarUrl = app.globalData.defaultAvatarUrl
 
 Page({
   data: {
-    defaultAvatarUrl: app.globalData.defaultAvatarUrl, 
     userInfo: {
       avatarUrl: defaultAvatarUrl,
       nickName: ''

@@ -9,7 +9,7 @@ Page({
       phone: '',
       avatar: ''
     },
-    defaultAvatar: app.globalData.defaultAvatar,
+    defaultAvatarUrl: app.globalData.defaultAvatarUrl,
     showRecordPopup: false,
     records: [] // { id, time, weight, note }
   },

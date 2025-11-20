@@ -13,7 +13,7 @@ Page({
       avatar: ''                 // 临时文件路径或网络地址
     },
     avatarFileList: [],          // 供 van-uploader 预览
-    defaultAvatar: app.globalData.defaultAvatar
+    defaultAvatarUrl: app.globalData.defaultAvatarUrl
   },
 
   /* 悬浮按钮 */
@@ -95,7 +95,7 @@ Page({
       id: Date.now().toString(),
       name: name.trim(),
       phone: phone.trim(),
-      avatar: avatar || this.data.defaultAvatar
+      avatar: avatar || this.data.defaultAvatarUrl
     };
 
     this.setData({

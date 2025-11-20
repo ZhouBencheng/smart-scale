@@ -12,7 +12,7 @@
       <view class="worker-item" bindtap="onTapWorker" data-id="{{item.id}}">
         <view class="card">
           <van-image class="avatar" round fit="cover"
-            src="{{item.avatar || defaultAvatar}}"
+            src="{{item.avatar || defaultAvatarUrl}}"
           ></van-image>
           <view class="info">
             <view class="name">{{item.name}}</view>
