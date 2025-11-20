@@ -1,4 +1,7 @@
 import Dialog from '../../@vant/weapp/dialog/dialog';
+
+var app = getApp()
+
 Page({
   data: {
     workers: [],                 // {id, name, phone, avatar}
@@ -10,7 +13,7 @@ Page({
       avatar: ''                 // 临时文件路径或网络地址
     },
     avatarFileList: [],          // 供 van-uploader 预览
-    defaultAvatar: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+    defaultAvatar: app.globalData.defaultAvatar
   },
 
   /* 悬浮按钮 */
@@ -21,7 +24,6 @@ Page({
     this.setData({ showAddPopup: false });
   },
   onShowQr(e) {
-    console.log(e);
     const { name } = e.currentTarget.dataset;
     Dialog.alert({
       title: `${name}`,

@@ -1,18 +1,18 @@
-// app.js
 import Dialog from '@vant/weapp/dialog/dialog'
 App({
   globalData: {
     env: "",
     btDevices: [
       {
-        id: 1,
-        rssi: -40,
-        name: 'BT986',
-        devId: '0',
-        img : '/images/scan/2.png',
+        // id: 1,
+        // rssi: -40,
+        // name: 'BT986',
+        // devId: '0',
+        // img : '/images/scan/2.png',
       }
     ],
     platform: 'android',
+    defaultAvatarUrl : 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
   },
   onLaunch: function () {
     if (!wx.cloud) {

@@ -1,3 +1,5 @@
+var app = getApp()
+
 Page({
   data: {
     workerId: '',
@@ -7,7 +9,7 @@ Page({
       phone: '',
       avatar: ''
     },
-    defaultAvatar: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+    defaultAvatar: app.globalData.defaultAvatar,
     showRecordPopup: false,
     records: [] // { id, time, weight, note }
   },
