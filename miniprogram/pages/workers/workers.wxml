@@ -9,7 +9,7 @@
 <view class="workers-page">
   <view class="worker-grid">
     <block wx:for="{{workers}}" wx:key="id" wx:for-item="item">
-      <view class="worker-item" bindtap="onTapWorker" data-id="{{item.id}}">
+      <view class="worker-item van-ellipsis" bindtap="onTapWorker" data-id="{{item.id}}">
         <view class="card">
           <van-image class="avatar" round fit="cover"
             src="{{item.avatar || defaultAvatarUrl}}"
