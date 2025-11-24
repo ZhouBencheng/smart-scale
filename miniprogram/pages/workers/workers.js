@@ -16,13 +16,15 @@ Page({
     defaultAvatarUrl: app.globalData.defaultAvatarUrl
   },
 
-  /* 悬浮按钮 */
+  /* 悬浮按钮（添加人员） */
   openAddPopup() {
     this.setData({ showAddPopup: true });
   },
   closeAddPopup() {
     this.setData({ showAddPopup: false });
   },
+  
+  /* 展示二维码 */
   onShowQr(e) {
     const { name } = e.currentTarget.dataset;
     Dialog.alert({

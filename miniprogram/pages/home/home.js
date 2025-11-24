@@ -1,19 +1,33 @@
+import Dialog from '../../@vant/weapp/dialog/dialog';
+
 var app = getApp()
 
 Page({
   data: {
     defaultAvatarUrl : app.globalData.defaultAvatarUrl,
-    loggedIn: false,
+    loggedIn: false,          // 表示userInfo是否非空
     userInfo: {
       nickName: '',
       avatarUrl: ''
     },
+
+    companyBinded: false,     // 表示 company 是否非空
     company: {
       id: '',
       name: ''
     },
+    selectableCompanyName: [
+      '建水县日昇农业有限公司',
+      '石屏县牧佳谷农业有限公司'
+    ],
+    selectableCompanyId: [
+      'cc84495d6924447d04d162cc5cf04513',
+      'none'
+    ],
+    inputCompanyCode: '',
+
     chartDays: 7,
-    hasChartData: false
+    hasChartData: false,
   },
 
   onShow() {
@@ -26,7 +40,6 @@ Page({
     }
   },
 
-  /* —— 登录 —— */
   onLogin() {
     let that = this
     wx.navigateTo({
@@ -37,6 +50,7 @@ Page({
             loggedIn: true,
             userInfo: userInfo
           })
+          // console.log(that.data.userInfo)
         }
       },
     })
@@ -53,24 +67,83 @@ Page({
     wx.showToast({ icon: 'success', title: '已退出' });
   },
 
-  /* —— 公司绑定 —— */
+  onCompanyCodeChange(e) {
+    this.setData({
+      inputCompanyCode: e.detail
+    })
+    // console.log(this.data.inputCompanyCode)
+  },
+
   onBindCompany() {
     if (!this.data.loggedIn) {
       wx.showToast({ icon: 'none', title: '请先登录' });
       return;
     }
-    // 这里仅示例：实际可跳转到公司选择页
-    // wx.navigateTo({ url: '/pages/company-select/index' })
+    // refact: 公司数量多时可支持跳转至公司选择页
     wx.showActionSheet({
-      itemList: ['绑定示例公司 A', '绑定示例公司 B'],
+      // itemList最长为6
+      itemList: this.data.selectableCompanyName,
       success: (res) => {
-        const pick = res.tapIndex === 0
-          ? { id: 'A-001', name: '示例公司A' }
-          : { id: 'B-002', name: '示例公司B' };
-        this.setData({ company: pick });
+        const pickIndex = res.tapIndex
+        const pickCompany = {
+          id: this.data.selectableCompanyId[pickIndex],
+          name: this.data.selectableCompanyName[pickIndex]
+        }
+        this.setData({
+          companyBinded: false,
+          company: pickCompany
+        })
+        Dialog.confirm({
+          context: this,
+          title: '输入邀请码',
+          selector: '#van-dialog',
+        }).then(() => {
+          this.verifyCompanyCode()
+        }).catch(() => {
+
+        })
       }
     });
   },
+
+  verifyCompanyCode() {
+    const inputCompanyCode = this.data.inputCompanyCode
+    const company = this.data.company
+    if (!inputCompanyCode) {
+      wx.showToast({ icon: 'none', title: '请输入邀请码' });
+      return;
+    }
+
+    wx.cloud.callFunction({
+      name: 'verifyCompanyCode',
+      data: {
+        companyId: company.id,
+        companyCode: inputCompanyCode
+      }
+    }).then(res => {
+      console.log(res.result)
+      if (res.result && res.result.valid) {
+        this.setData({
+          companyBinded: true,
+        });
+        wx.showToast({ icon: 'success', title: '绑定成功' });
+      } else {
+        wx.showToast({ icon: 'none', title: '邀请码错误' });
+      }
+    }).catch(err => {
+      console.error(err);
+      wx.showToast({ icon: 'none', title: '校验失败' });
+    });
+  },
+
+  // genCompanyCode() {
+  //   wx.cloud.callFunction({
+  //     name: 'createCompany',
+  //     data: {}
+  //   }).then(res => {
+  //     console.log(res.result)
+  //   })
+  // },
 
   /* —— 日历跳转 —— */
   goCalendar() {

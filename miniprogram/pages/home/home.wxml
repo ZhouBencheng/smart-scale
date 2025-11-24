@@ -10,7 +10,10 @@
   <view class="user-right">
     <view class="user-name">
       {{ loggedIn ? (userInfo.nickName || userInfo.name || '已登录') : '未登录' }}
-      <van-tag wx:if="{{loggedIn}}" type="success" plain size="medium" class="ml8">已绑定</van-tag>
+      <block wx:if="{{loggedIn}}">
+        <van-tag wx:if="{{companyBinded}}" type="success" plain size="medium" class="ml8">已绑定</van-tag>
+        <van-tag wx:else type="danger" plain size="medium" class="ml8">请绑定隶属公司</van-tag>
+      </block>
     </view>
     <view class="user-sub">
       {{ loggedIn ? '欢迎回来' : '登录并绑定公司后可同步称重数据' }}
@@ -32,7 +35,6 @@
       wx:if="{{loggedIn}}"
       type="danger"
       plain
-      hairline
       size="small"
       round
       icon="close"
@@ -45,26 +47,21 @@
 <van-cell-group inset class="section card" border="{{false}}">
   <!-- 公司绑定信息 -->
   <van-cell
-    title="公司"
+    title-class="van-ellipsis"
+    title="{{companyBinded ? company.name : '公司' }}"
     icon="home-o"
-    value="{{ company.name || '未绑定' }}"
+    value="{{ companyBinded ? '更换绑定' : '未绑定' }}"
     is-link
     bind:tap="onBindCompany" />
-  <van-cell
-    wx:if="{{company.name}}"
-    title="公司编号"
-    value="{{company.id}}"
-    icon="records" 
-    size="large"/>
 
-  <!-- 功能入口 -->
+  <!-- 查询采摘历史 -->
   <van-cell
     title="采摘日历"
     icon="calendar-o"
     is-link
     bind:tap="goCalendar" />
 
-  <!-- 图表设置 -->
+  <!-- 设置图标元数据 -->
   <van-cell title="图表天数" label="折线图展示最近 N 天" icon="setting-o" use-label-slot border="{{false}}">
     <view slot="right-icon" class="stepper-wrap">
       <van-stepper value="{{chartDays}}"
@@ -97,3 +94,18 @@
 
 <van-divider />
 <view class="safe-bottom" />
+
+<van-dialog
+  id="van-dialog"
+  use-slot
+  title="输入邀请码">
+  <view class="bind-form">
+    <van-field
+      model:value="{{ inviteCode }}"
+      placeholder="请输入公司邀请码"
+      border="{{ false }}"
+      bind:change="onCompanyCodeChange" />
+  </view>
+</van-dialog>
+
+<!-- <van-button bind:tap="genCompanyCode">获取</van-button> -->

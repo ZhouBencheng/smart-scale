@@ -45,7 +45,7 @@
   <van-icon name="plus" size="24px" color="#ffffff" />
 </view>
 
-<!-- 新增工人弹窗 -->
+<!-- 工人添加表单 -->
 <van-popup
   show="{{showAddPopup}}"
   round

@@ -1,4 +1,5 @@
 @import 'miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
+@import 'miniprogram_npm/@vant/weapp/common/index.wxss';
 
 .container {
   display: flex;
