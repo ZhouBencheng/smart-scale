@@ -33,7 +33,23 @@ Page({
     })
   },
   onFinishLogin() {
-    this.data.eventChannel.emit('getUserInfo', this.data.userInfo)
+    var that = this
+    wx.cloud.callFunction({ 
+      name: 'checkCompanyBind',
+      data: {}
+    }).then(res => {
+      // console.log(res.result)
+      if (res.result.exist) {
+        that.data.eventChannel.emit('getCompanyBind', {
+          companyId: res.result.company_id
+        })
+      }
+    }).catch(err => {
+      console.error(err)
+    })
+    that.data.eventChannel.emit('getUserInfo', {
+      userInfo: that.data.userInfo,
+    })
     wx.navigateBack({
       delta: 1,
     })

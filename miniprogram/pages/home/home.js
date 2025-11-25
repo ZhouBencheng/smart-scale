@@ -24,6 +24,9 @@ Page({
       'cc84495d6924447d04d162cc5cf04513',
       'none'
     ],
+    selectableCompanyMap: {
+      cc84495d6924447d04d162cc5cf04513: '建水县日昇农业有限公司'
+    },
     inputCompanyCode: '',
 
     chartDays: 7,
@@ -45,12 +48,21 @@ Page({
     wx.navigateTo({
       url: '/pages/login/login',
       events: {
-        getUserInfo: function(userInfo) {
+        getUserInfo: function(data) {
           that.setData({
             loggedIn: true,
-            userInfo: userInfo
+            userInfo: data.userInfo,
           })
           // console.log(that.data.userInfo)
+        },
+        getCompanyBind: function(data) {
+          that.setData({
+            companyBinded: true,
+            company: {
+              name: that.data.selectableCompanyMap[data.companyId],
+              id: data.companyId
+            }
+          })
         }
       },
     })
@@ -113,7 +125,6 @@ Page({
       wx.showToast({ icon: 'none', title: '请输入邀请码' });
       return;
     }
-
     wx.cloud.callFunction({
       name: 'verifyCompanyCode',
       data: {
@@ -121,7 +132,7 @@ Page({
         companyCode: inputCompanyCode
       }
     }).then(res => {
-      console.log(res.result)
+      // console.log(res.result)
       if (res.result && res.result.valid) {
         this.setData({
           companyBinded: true,
@@ -135,15 +146,6 @@ Page({
       wx.showToast({ icon: 'none', title: '校验失败' });
     });
   },
-
-  // genCompanyCode() {
-  //   wx.cloud.callFunction({
-  //     name: 'createCompany',
-  //     data: {}
-  //   }).then(res => {
-  //     console.log(res.result)
-  //   })
-  // },
 
   /* —— 日历跳转 —— */
   goCalendar() {
